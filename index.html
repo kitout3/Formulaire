@@ -7,24 +7,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  /* ── RESET & VARIABLES ─────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --rose:       #c2185b;
+    --rose: #c2185b;
     --rose-light: #f8bbd9;
-    --rose-pale:  #fff0f6;
-    --gold:       #c9963a;
+    --rose-pale: #fff0f6;
+    --gold: #c9963a;
     --gold-light: #f5e6c8;
-    --cream:      #fdf8f2;
-    --dark:       #2c1810;
-    --muted:      #7a6a5a;
-    --border:     #e8d5c4;
-    --white:      #ffffff;
-    --shadow:     0 2px 24px rgba(194,24,91,.10);
-    --radius:     14px;
+    --cream: #fdf8f2;
+    --dark: #2c1810;
+    --muted: #7a6a5a;
+    --border: #e8d5c4;
+    --white: #ffffff;
+    --shadow: 0 2px 24px rgba(194,24,91,.10);
+    --radius: 14px;
     --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans:  'Jost', sans-serif;
+    --font-sans: 'Jost', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
@@ -37,7 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* ── BACKGROUND ORNAMENTS ──────────────────────────────────── */
   body::before {
     content: '';
     position: fixed; inset: 0;
@@ -47,11 +45,130 @@
     pointer-events: none; z-index: 0;
   }
 
-  /* ── HEADER ────────────────────────────────────────────────── */
+  .language-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(44, 24, 16, 0.35);
+    backdrop-filter: blur(4px);
+  }
+
+  .language-card {
+    width: 100%;
+    max-width: 560px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(44, 24, 16, 0.15);
+    padding: 32px 28px;
+    text-align: center;
+    position: relative;
+    z-index: 31;
+  }
+
+  .language-card h2 {
+    font-family: var(--font-serif);
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--rose);
+    margin-bottom: 8px;
+  }
+
+  .language-card p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .language-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .language-choice-grid { grid-template-columns: 1fr; }
+  }
+
+  .language-option {
+    border: 1.5px solid var(--border);
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+  }
+
+  .language-option:hover,
+  .language-option.active {
+    border-color: var(--rose);
+    background: var(--rose-pale);
+    box-shadow: 0 4px 14px rgba(194,24,91,.12);
+  }
+
+  .language-option .flag {
+    display: block;
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .language-option .lang-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .language-option .lang-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .enter-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 34px;
+    background: linear-gradient(135deg, var(--rose) 0%, #e91e8c 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(194,24,91,.35);
+  }
+
+  .hidden-initial {
+    display: none;
+  }
+
   header {
     position: relative; z-index: 1;
     text-align: center;
     padding: 64px 24px 48px;
+  }
+
+  .top-language-switcher {
+    max-width: 680px;
+    margin: 0 auto 24px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .top-language-switcher select {
+    width: auto;
+    min-width: 180px;
+    background-color: var(--white);
   }
 
   .header-ornament {
@@ -104,7 +221,6 @@
   .divider::after { background: linear-gradient(to left, transparent, var(--border)); }
   .divider span { font-size: 18px; color: var(--gold); }
 
-  /* ── CARD ──────────────────────────────────────────────────── */
   .card {
     position: relative; z-index: 1;
     background: var(--white);
@@ -133,7 +249,6 @@
     font-style: italic;
   }
 
-  /* ── FORM FIELDS ───────────────────────────────────────────── */
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
   @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
   .field { margin-bottom: 18px; }
@@ -191,7 +306,6 @@
 
   textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
 
-  /* ── RADIO / CHECK GROUPS ──────────────────────────────────── */
   .radio-group, .check-group {
     display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px;
   }
@@ -229,7 +343,6 @@
     background: var(--rose-pale);
   }
 
-  /* ── TOGGLE SECTIONS ───────────────────────────────────────── */
   .toggle-section {
     overflow: hidden;
     max-height: 0;
@@ -237,7 +350,6 @@
   }
   .toggle-section.open { max-height: 500px; }
 
-  /* ── SUBMIT BUTTON ─────────────────────────────────────────── */
   .submit-wrap {
     text-align: center; margin-top: 12px;
     position: relative; z-index: 1;
@@ -275,7 +387,6 @@
   .btn-submit.loading .spinner { display: block; }
   .btn-submit.loading .btn-text { opacity: .7; }
 
-  /* ── SUCCESS STATE ─────────────────────────────────────────── */
   #success-screen {
     display: none;
     position: relative; z-index: 1;
@@ -293,7 +404,6 @@
   }
   #success-screen p { font-size: 16px; color: var(--muted); font-style: italic; line-height: 1.7; }
 
-  /* ── FOOTER ────────────────────────────────────────────────── */
   footer {
     text-align: center;
     padding: 40px 24px;
@@ -303,7 +413,6 @@
     position: relative; z-index: 1;
   }
 
-  /* ── ANIMATIONS ────────────────────────────────────────────── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -319,276 +428,577 @@
 </head>
 <body>
 
-<!-- ── HEADER ─────────────────────────────────────────────────── -->
-<header>
-  <span class="header-ornament">✦ ✦ ✦</span>
-  <h1 class="couple-names"><em>Huyen</em> &amp; <em>Quentin</em></h1>
-  <p class="header-date">30/08/2026 &nbsp;—&nbsp; Ville, France</p>
-  <p class="header-sub">Nous serions si heureux de vous compter parmi nous 💍</p>
-  <div class="divider"><span>❧</span></div>
-</header>
+<div class="language-gate" id="language-gate">
+  <div class="language-card">
+    <h2 data-i18n="gate_title">Choisissez votre langue</h2>
+    <p data-i18n="gate_subtitle">Veuillez sélectionner votre langue avant d'accéder au formulaire.</p>
 
-<!-- ── FORM ───────────────────────────────────────────────────── -->
-<main id="form-wrapper">
-<form id="mariage-form" novalidate>
-
-  <!-- CARTE 1 — IDENTITÉ -->
-  <div class="card">
-    <div class="card-title"><span class="icon">👤</span> Votre identité</div>
-    <p class="card-desc">Ces informations nous permettront de personnaliser votre invitation.</p>
-
-    <div class="field-row">
-      <div class="field">
-        <label for="prenom">Prénom <span class="req">*</span></label>
-        <input type="text" id="prenom" name="prenom" placeholder="Marie" required>
-        <p class="error-msg" id="err-prenom">Champ requis</p>
-      </div>
-      <div class="field">
-        <label for="nom">Nom <span class="req">*</span></label>
-        <input type="text" id="nom" name="nom" placeholder="Dupont" required>
-        <p class="error-msg" id="err-nom">Champ requis</p>
-      </div>
+    <div class="language-choice-grid">
+      <button type="button" class="language-option active" data-lang-choice="fr">
+        <span class="flag">🇫🇷</span>
+        <span class="lang-name">Français</span>
+        <span class="lang-sub">Version française</span>
+      </button>
+      <button type="button" class="language-option" data-lang-choice="en">
+        <span class="flag">🇬🇧</span>
+        <span class="lang-name">English</span>
+        <span class="lang-sub">English version</span>
+      </button>
+      <button type="button" class="language-option" data-lang-choice="vi">
+        <span class="flag">🇻🇳</span>
+        <span class="lang-name">Tiếng Việt</span>
+        <span class="lang-sub">Phiên bản tiếng Việt</span>
+      </button>
     </div>
 
-    <div class="field">
-      <label for="telephone">Téléphone (optionnel)</label>
-      <input type="text" id="telephone" name="telephone" placeholder="+33 6 00 00 00 00">
-    </div>
+    <button type="button" class="enter-btn" id="enter-form-btn" data-i18n="gate_continue">Accéder au formulaire</button>
   </div>
-
-  <!-- CARTE 2 — PRÉSENCE -->
-  <div class="card">
-    <div class="card-title"><span class="icon">🎉</span> Votre présence</div>
-    <p class="card-desc">Serez-vous parmi nous ce jour si particulier ?</p>
-
-    <div class="field">
-      <label>Confirmez-vous votre présence ? <span class="req">*</span></label>
-      <div class="radio-group" id="presence-group">
-        <div class="radio-btn">
-          <input type="radio" name="presence" id="p-oui" value="Oui" required>
-          <label for="p-oui">✅ Oui, avec plaisir !</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="presence" id="p-non" value="Non">
-          <label for="p-non">😔 Non, je ne pourrai pas</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="presence" id="p-attente" value="À confirmer">
-          <label for="p-attente">⏳ À confirmer</label>
-        </div>
-      </div>
-      <p class="error-msg" id="err-presence">Veuillez indiquer votre présence</p>
-    </div>
-
-    <div class="field">
-      <label>Venez-vous accompagné(e) d'enfants ?</label>
-      <div class="radio-group">
-        <div class="radio-btn">
-          <input type="radio" name="avec_enfants" id="enf-oui" value="Oui">
-          <label for="enf-oui">👶 Oui</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="avec_enfants" id="enf-non" value="Non" checked>
-          <label for="enf-non">— Non</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle-section" id="enfants-detail-wrap">
-      <div class="field">
-        <label for="nb_enfants">Nombre d'enfants</label>
-        <input type="number" id="nb_enfants" name="nb_enfants" min="1" max="10" placeholder="ex : 2">
-      </div>
-      <div class="field">
-        <label for="ages_enfants">Âge(s) des enfants</label>
-        <input type="text" id="ages_enfants" name="ages_enfants" placeholder="ex : 3 ans, 7 ans, 11 ans">
-      </div>
-    </div>
-  </div>
-
-  <!-- CARTE 3 — REPAS -->
-  <div class="card">
-    <div class="card-title"><span class="icon">🍽️</span> Repas & régimes</div>
-    <p class="card-desc">Pour que nous puissions vous concocter le menu parfait.</p>
-
-    <div class="field">
-      <label>Avez-vous des allergies ou régimes alimentaires ?</label>
-      <div class="check-group">
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-vege" value="Végétarien">
-          <label for="r-vege">🥦 Végétarien</label>
-        </div>
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-vegan" value="Vegan">
-          <label for="r-vegan">🌱 Vegan</label>
-        </div>
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-gluten" value="Sans gluten">
-          <label for="r-gluten">🌾 Sans gluten</label>
-        </div>
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-halal" value="Halal">
-          <label for="r-halal">☪️ Halal</label>
-        </div>
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-casher" value="Casher">
-          <label for="r-casher">✡️ Casher</label>
-        </div>
-        <div class="check-btn">
-          <input type="checkbox" name="regime" id="r-autre" value="Autre">
-          <label for="r-autre">⚠️ Autre allergie</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="field toggle-section" id="allergie-detail-wrap">
-      <label for="allergie-detail">Précisez votre allergie</label>
-      <input type="text" id="allergie-detail" name="allergie_detail" placeholder="ex : arachides, lactose…">
-    </div>
-  </div>
-
-  <!-- CARTE 4 — TRANSPORT -->
-  <div class="card">
-    <div class="card-title"><span class="icon">🚗</span> Transport & covoiturage</div>
-    <p class="card-desc">Pour organiser les déplacements au mieux.</p>
-
-    <div class="field">
-      <label>Comment venez-vous ? <span class="req">*</span></label>
-      <div class="radio-group">
-        <div class="radio-btn">
-          <input type="radio" name="transport" id="tr-voiture" value="Voiture" required>
-          <label for="tr-voiture">🚗 Voiture</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="transport" id="tr-navette" value="Navette">
-          <label for="tr-navette">🚌 Navette</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="transport" id="tr-autre" value="Autre">
-          <label for="tr-autre">🚶 Autre</label>
-        </div>
-      </div>
-      <p class="error-msg" id="err-transport">Veuillez sélectionner votre moyen de transport</p>
-    </div>
-
-    <div class="field">
-      <label>Covoiturage</label>
-      <div class="radio-group">
-        <div class="radio-btn">
-          <input type="radio" name="covoiturage" id="cv-propose" value="Je propose une place">
-          <label for="cv-propose">🙋 Je propose une place</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="covoiturage" id="cv-recherche" value="Je recherche une place">
-          <label for="cv-recherche">🔍 Je recherche une place</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="covoiturage" id="cv-non" value="Non concerné" checked>
-          <label for="cv-non">— Non concerné</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- CARTE 5 — HÉBERGEMENT -->
-  <div class="card">
-    <div class="card-title"><span class="icon">🛏️</span> Hébergement</div>
-    <p class="card-desc">Pour s'assurer que vous passiez une nuit sereine.</p>
-
-    <div class="field">
-      <label>Avez-vous besoin d'hébergement ?</label>
-      <div class="radio-group">
-        <div class="radio-btn">
-          <input type="radio" name="hebergement" id="h-oui" value="Oui">
-          <label for="h-oui">🏨 Oui, j'en ai besoin</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="hebergement" id="h-reserve" value="Chambre réservée">
-          <label for="h-reserve">✅ Chambre déjà réservée</label>
-        </div>
-        <div class="radio-btn">
-          <input type="radio" name="hebergement" id="h-non" value="Non" checked>
-          <label for="h-non">🚗 Non, je rentre chez moi</label>
-        </div>
-      </div>
-    </div>
-
-    <div class="field toggle-section" id="nuits-wrap">
-      <label for="nb_nuits">Nombre de nuits</label>
-      <input type="number" id="nb_nuits" name="nb_nuits" min="1" max="7" placeholder="1">
-    </div>
-  </div>
-
-  <!-- CARTE 6 — MESSAGE -->
-  <div class="card">
-    <div class="card-title"><span class="icon">💌</span> Un mot pour nous ?</div>
-    <p class="card-desc">Un message, une chanson, une anecdote… tout est bienvenu.</p>
-    <div class="field">
-      <label for="message">Votre message (optionnel)</label>
-      <textarea id="message" name="message" placeholder="Écrivez ici votre mot pour les mariés…"></textarea>
-    </div>
-  </div>
-
-  <!-- SUBMIT -->
-  <div class="submit-wrap">
-    <button type="submit" class="btn-submit" id="btn-submit">
-      <div class="spinner"></div>
-      <span class="btn-text">💍 Envoyer ma réponse</span>
-    </button>
-    <p id="global-error" style="color:#e53935;font-size:13px;margin-top:14px;display:none;">
-      Veuillez remplir tous les champs obligatoires.
-    </p>
-  </div>
-
-</form>
-
-<!-- SUCCESS SCREEN -->
-<div id="success-screen">
-  <span class="big-emoji">💍</span>
-  <h2>Merci, c'est noté !</h2>
-  <p>Votre réponse a bien été enregistrée.<br>
-     Nous avons hâte de célébrer ce moment avec vous.<br><br>
-     <em>À très bientôt ✨</em>
-  </p>
 </div>
-</main>
 
-<footer>
-  ✦ &nbsp; Formulaire réservé aux invités &nbsp; ✦ &nbsp; Ne pas partager &nbsp; ✦
-</footer>
+<div id="page-content" class="hidden-initial">
+  <header>
+    <div class="top-language-switcher">
+      <select id="language-switcher" aria-label="Language selector">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+    </div>
+
+    <span class="header-ornament">✦ ✦ ✦</span>
+    <h1 class="couple-names"><em>Huyen</em> &amp; <em>Quentin</em></h1>
+    <p class="header-date">30/08/2026 &nbsp;—&nbsp; Ville, France</p>
+    <p class="header-sub" data-i18n="header_sub">Nous serions si heureux de vous compter parmi nous 💍</p>
+    <div class="divider"><span>❧</span></div>
+  </header>
+
+  <main id="form-wrapper">
+  <form id="mariage-form" novalidate>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">👤</span> <span data-i18n="card_identity_title">Votre identité</span></div>
+      <p class="card-desc" data-i18n="card_identity_desc">Ces informations nous permettront de personnaliser votre invitation.</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="prenom"><span data-i18n="label_firstname">Prénom</span> <span class="req">*</span></label>
+          <input type="text" id="prenom" name="prenom" placeholder="Marie" required data-i18n-placeholder="placeholder_firstname">
+          <p class="error-msg" id="err-prenom" data-i18n="error_required">Champ requis</p>
+        </div>
+        <div class="field">
+          <label for="nom"><span data-i18n="label_lastname">Nom</span> <span class="req">*</span></label>
+          <input type="text" id="nom" name="nom" placeholder="Dupont" required data-i18n-placeholder="placeholder_lastname">
+          <p class="error-msg" id="err-nom" data-i18n="error_required">Champ requis</p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="telephone" data-i18n="label_phone_optional">Téléphone (optionnel)</label>
+        <input type="text" id="telephone" name="telephone" placeholder="+33 6 00 00 00 00" data-i18n-placeholder="placeholder_phone">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎉</span> <span data-i18n="card_attendance_title">Votre présence</span></div>
+      <p class="card-desc" data-i18n="card_attendance_desc">Serez-vous parmi nous ce jour si particulier ?</p>
+
+      <div class="field">
+        <label><span data-i18n="label_attendance_confirm">Confirmez-vous votre présence ?</span> <span class="req">*</span></label>
+        <div class="radio-group" id="presence-group">
+          <div class="radio-btn">
+            <input type="radio" name="presence" id="p-oui" value="Oui" required>
+            <label for="p-oui" data-i18n="attendance_yes">✅ Oui, avec plaisir !</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="presence" id="p-non" value="Non">
+            <label for="p-non" data-i18n="attendance_no">😔 Non, je ne pourrai pas</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="presence" id="p-attente" value="À confirmer">
+            <label for="p-attente" data-i18n="attendance_maybe">⏳ À confirmer</label>
+          </div>
+        </div>
+        <p class="error-msg" id="err-presence" data-i18n="error_presence">Veuillez indiquer votre présence</p>
+      </div>
+
+      <div class="field">
+        <label data-i18n="label_children">Venez-vous accompagné(e) d'enfants ?</label>
+        <div class="radio-group">
+          <div class="radio-btn">
+            <input type="radio" name="avec_enfants" id="enf-oui" value="Oui">
+            <label for="enf-oui" data-i18n="generic_yes_children">👶 Oui</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="avec_enfants" id="enf-non" value="Non" checked>
+            <label for="enf-non" data-i18n="generic_no">— Non</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="toggle-section" id="enfants-detail-wrap">
+        <div class="field">
+          <label for="nb_enfants" data-i18n="label_children_count">Nombre d'enfants</label>
+          <input type="number" id="nb_enfants" name="nb_enfants" min="1" max="10" placeholder="ex : 2" data-i18n-placeholder="placeholder_children_count">
+        </div>
+        <div class="field">
+          <label for="ages_enfants" data-i18n="label_children_ages">Âge(s) des enfants</label>
+          <input type="text" id="ages_enfants" name="ages_enfants" placeholder="ex : 3 ans, 7 ans, 11 ans" data-i18n-placeholder="placeholder_children_ages">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🍽️</span> <span data-i18n="card_meal_title">Repas & régimes</span></div>
+      <p class="card-desc" data-i18n="card_meal_desc">Pour que nous puissions vous concocter le menu parfait.</p>
+
+      <div class="field">
+        <label data-i18n="label_diet">Avez-vous des allergies ou régimes alimentaires ?</label>
+        <div class="check-group">
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-vege" value="Végétarien">
+            <label for="r-vege" data-i18n="diet_vegetarian">🥦 Végétarien</label>
+          </div>
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-vegan" value="Vegan">
+            <label for="r-vegan" data-i18n="diet_vegan">🌱 Vegan</label>
+          </div>
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-gluten" value="Sans gluten">
+            <label for="r-gluten" data-i18n="diet_glutenfree">🌾 Sans gluten</label>
+          </div>
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-halal" value="Halal">
+            <label for="r-halal">☪️ Halal</label>
+          </div>
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-casher" value="Casher">
+            <label for="r-casher">✡️ Casher</label>
+          </div>
+          <div class="check-btn">
+            <input type="checkbox" name="regime" id="r-autre" value="Autre">
+            <label for="r-autre" data-i18n="diet_other">⚠️ Autre allergie</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field toggle-section" id="allergie-detail-wrap">
+        <label for="allergie-detail" data-i18n="label_allergy_detail">Précisez votre allergie</label>
+        <input type="text" id="allergie-detail" name="allergie_detail" placeholder="ex : arachides, lactose…" data-i18n-placeholder="placeholder_allergy_detail">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🚗</span> <span data-i18n="card_transport_title">Transport & covoiturage</span></div>
+      <p class="card-desc" data-i18n="card_transport_desc">Pour organiser les déplacements au mieux.</p>
+
+      <div class="field">
+        <label><span data-i18n="label_transport">Comment venez-vous ?</span> <span class="req">*</span></label>
+        <div class="radio-group">
+          <div class="radio-btn">
+            <input type="radio" name="transport" id="tr-voiture" value="Voiture" required>
+            <label for="tr-voiture" data-i18n="transport_car">🚗 Voiture</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="transport" id="tr-navette" value="Navette">
+            <label for="tr-navette" data-i18n="transport_shuttle">🚌 Navette</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="transport" id="tr-autre" value="Autre">
+            <label for="tr-autre" data-i18n="transport_other">🚶 Autre</label>
+          </div>
+        </div>
+        <p class="error-msg" id="err-transport" data-i18n="error_transport">Veuillez sélectionner votre moyen de transport</p>
+      </div>
+
+      <div class="field">
+        <label data-i18n="label_carpooling">Covoiturage</label>
+        <div class="radio-group">
+          <div class="radio-btn">
+            <input type="radio" name="covoiturage" id="cv-propose" value="Je propose une place">
+            <label for="cv-propose" data-i18n="carpool_offer">🙋 Je propose une place</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="covoiturage" id="cv-recherche" value="Je recherche une place">
+            <label for="cv-recherche" data-i18n="carpool_need">🔍 Je recherche une place</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="covoiturage" id="cv-non" value="Non concerné" checked>
+            <label for="cv-non" data-i18n="carpool_not_concerned">— Non concerné</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🛏️</span> <span data-i18n="card_stay_title">Hébergement</span></div>
+      <p class="card-desc" data-i18n="card_stay_desc">Pour s'assurer que vous passiez une nuit sereine.</p>
+
+      <div class="field">
+        <label data-i18n="label_stay">Avez-vous besoin d'hébergement ?</label>
+        <div class="radio-group">
+          <div class="radio-btn">
+            <input type="radio" name="hebergement" id="h-oui" value="Oui">
+            <label for="h-oui" data-i18n="stay_need">🏨 Oui, j'en ai besoin</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="hebergement" id="h-reserve" value="Chambre réservée">
+            <label for="h-reserve" data-i18n="stay_reserved">✅ Chambre déjà réservée</label>
+          </div>
+          <div class="radio-btn">
+            <input type="radio" name="hebergement" id="h-non" value="Non" checked>
+            <label for="h-non" data-i18n="stay_no">🚗 Non, je rentre chez moi</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="field toggle-section" id="nuits-wrap">
+        <label for="nb_nuits" data-i18n="label_nights">Nombre de nuits</label>
+        <input type="number" id="nb_nuits" name="nb_nuits" min="1" max="7" placeholder="1" data-i18n-placeholder="placeholder_nights">
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">💌</span> <span data-i18n="card_message_title">Un mot pour nous ?</span></div>
+      <p class="card-desc" data-i18n="card_message_desc">Un message, une chanson, une anecdote… tout est bienvenu.</p>
+      <div class="field">
+        <label for="message" data-i18n="label_message_optional">Votre message (optionnel)</label>
+        <textarea id="message" name="message" placeholder="Écrivez ici votre mot pour les mariés…" data-i18n-placeholder="placeholder_message"></textarea>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="submit" class="btn-submit" id="btn-submit">
+        <div class="spinner"></div>
+        <span class="btn-text" data-i18n="submit_button">💍 Envoyer ma réponse</span>
+      </button>
+      <p id="global-error" style="color:#e53935;font-size:13px;margin-top:14px;display:none;" data-i18n="error_global">
+        Veuillez remplir tous les champs obligatoires.
+      </p>
+    </div>
+
+  </form>
+
+  <div id="success-screen">
+    <span class="big-emoji">💍</span>
+    <h2 data-i18n="success_title">Merci, c'est noté !</h2>
+    <p data-i18n="success_message">Votre réponse a bien été enregistrée.<br>Nous avons hâte de célébrer ce moment avec vous.<br><br><em>À très bientôt ✨</em></p>
+  </div>
+  </main>
+
+  <footer data-i18n="footer_text">✦ &nbsp; Formulaire réservé aux invités &nbsp; ✦ &nbsp; Ne pas partager &nbsp; ✦</footer>
+</div>
 
 <script>
-  // ── CONFIG ─────────────────────────────────────────────────────
-  // Renseignez votre URL Apps Script si vous souhaitez enregistrer les réponses à distance.
-  // Si aucune URL n'est définie, le formulaire restera pleinement fonctionnel
-  // et téléchargera automatiquement un fichier JSON contenant la réponse.
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbysYhSsdibXUIaiPNWNwR7Vd077GcigskPSgEVNFnON2n2HSlqoYE5qZEa5hDDTPstX/exec';
-  const HAS_REMOTE_ENDPOINT = APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('https://script.google.com/macros/s/AKfycbysYhSsdibXUIaiPNWNwR7Vd077GcigskPSgEVNFnON2n2HSlqoYE5qZEa5hDDTPstX/exec');
+  const HAS_REMOTE_ENDPOINT = APPS_SCRIPT_URL.trim() !== '';
 
-  // ── TOGGLE "autre allergie" ─────────────────────────────────────
-  const checkAutreReg = document.getElementById('regime-autre-check') || document.getElementById('r-autre');
+  const translations = {
+    fr: {
+      page_title: 'Notre Mariage — Formulaire Invités',
+      gate_title: 'Choisissez votre langue',
+      gate_subtitle: 'Veuillez sélectionner votre langue avant d\'accéder au formulaire.',
+      gate_continue: 'Accéder au formulaire',
+      header_sub: 'Nous serions si heureux de vous compter parmi nous 💍',
+      card_identity_title: 'Votre identité',
+      card_identity_desc: 'Ces informations nous permettront de personnaliser votre invitation.',
+      label_firstname: 'Prénom',
+      label_lastname: 'Nom',
+      label_phone_optional: 'Téléphone (optionnel)',
+      placeholder_firstname: 'Marie',
+      placeholder_lastname: 'Dupont',
+      placeholder_phone: '+33 6 00 00 00 00',
+      error_required: 'Champ requis',
+      card_attendance_title: 'Votre présence',
+      card_attendance_desc: 'Serez-vous parmi nous ce jour si particulier ?',
+      label_attendance_confirm: 'Confirmez-vous votre présence ?',
+      attendance_yes: '✅ Oui, avec plaisir !',
+      attendance_no: '😔 Non, je ne pourrai pas',
+      attendance_maybe: '⏳ À confirmer',
+      error_presence: 'Veuillez indiquer votre présence',
+      label_children: 'Venez-vous accompagné(e) d\'enfants ?',
+      generic_yes_children: '👶 Oui',
+      generic_no: '— Non',
+      label_children_count: 'Nombre d\'enfants',
+      label_children_ages: 'Âge(s) des enfants',
+      placeholder_children_count: 'ex : 2',
+      placeholder_children_ages: 'ex : 3 ans, 7 ans, 11 ans',
+      card_meal_title: 'Repas & régimes',
+      card_meal_desc: 'Pour que nous puissions vous concocter le menu parfait.',
+      label_diet: 'Avez-vous des allergies ou régimes alimentaires ?',
+      diet_vegetarian: '🥦 Végétarien',
+      diet_vegan: '🌱 Vegan',
+      diet_glutenfree: '🌾 Sans gluten',
+      diet_other: '⚠️ Autre allergie',
+      label_allergy_detail: 'Précisez votre allergie',
+      placeholder_allergy_detail: 'ex : arachides, lactose…',
+      card_transport_title: 'Transport & covoiturage',
+      card_transport_desc: 'Pour organiser les déplacements au mieux.',
+      label_transport: 'Comment venez-vous ?',
+      transport_car: '🚗 Voiture',
+      transport_shuttle: '🚌 Navette',
+      transport_other: '🚶 Autre',
+      error_transport: 'Veuillez sélectionner votre moyen de transport',
+      label_carpooling: 'Covoiturage',
+      carpool_offer: '🙋 Je propose une place',
+      carpool_need: '🔍 Je recherche une place',
+      carpool_not_concerned: '— Non concerné',
+      card_stay_title: 'Hébergement',
+      card_stay_desc: 'Pour s\'assurer que vous passiez une nuit sereine.',
+      label_stay: 'Avez-vous besoin d\'hébergement ?',
+      stay_need: '🏨 Oui, j\'en ai besoin',
+      stay_reserved: '✅ Chambre déjà réservée',
+      stay_no: '🚗 Non, je rentre chez moi',
+      label_nights: 'Nombre de nuits',
+      placeholder_nights: '1',
+      card_message_title: 'Un mot pour nous ?',
+      card_message_desc: 'Un message, une chanson, une anecdote… tout est bienvenu.',
+      label_message_optional: 'Votre message (optionnel)',
+      placeholder_message: 'Écrivez ici votre mot pour les mariés…',
+      submit_button: '💍 Envoyer ma réponse',
+      error_global: 'Veuillez remplir tous les champs obligatoires.',
+      success_title: 'Merci, c\'est noté !',
+      success_message: 'Votre réponse a bien été enregistrée.<br>Nous avons hâte de célébrer ce moment avec vous.<br><br><em>À très bientôt ✨</em>',
+      footer_text: '✦ &nbsp; Formulaire réservé aux invités &nbsp; ✦ &nbsp; Ne pas partager &nbsp; ✦',
+      send_error: 'Une erreur est survenue lors de l’envoi vers Google Sheets.',
+      missing_url: 'URL Apps Script manquante'
+    },
+    en: {
+      page_title: 'Our Wedding — Guest Form',
+      gate_title: 'Choose your language',
+      gate_subtitle: 'Please select your language before accessing the form.',
+      gate_continue: 'Access the form',
+      header_sub: 'We would be so happy to have you celebrate with us 💍',
+      card_identity_title: 'Your details',
+      card_identity_desc: 'This information will help us personalize your invitation.',
+      label_firstname: 'First name',
+      label_lastname: 'Last name',
+      label_phone_optional: 'Phone number (optional)',
+      placeholder_firstname: 'Marie',
+      placeholder_lastname: 'Dupont',
+      placeholder_phone: '+33 6 00 00 00 00',
+      error_required: 'Required field',
+      card_attendance_title: 'Your attendance',
+      card_attendance_desc: 'Will you be joining us on this special day?',
+      label_attendance_confirm: 'Will you attend?',
+      attendance_yes: '✅ Yes, with pleasure!',
+      attendance_no: '😔 No, I will not be able to attend',
+      attendance_maybe: '⏳ To be confirmed',
+      error_presence: 'Please confirm your attendance',
+      label_children: 'Will you be coming with children?',
+      generic_yes_children: '👶 Yes',
+      generic_no: '— No',
+      label_children_count: 'Number of children',
+      label_children_ages: 'Children\'s age(s)',
+      placeholder_children_count: 'e.g. 2',
+      placeholder_children_ages: 'e.g. 3 years, 7 years, 11 years',
+      card_meal_title: 'Meal & dietary requirements',
+      card_meal_desc: 'So we can prepare the perfect menu for you.',
+      label_diet: 'Do you have any allergies or dietary requirements?',
+      diet_vegetarian: '🥦 Vegetarian',
+      diet_vegan: '🌱 Vegan',
+      diet_glutenfree: '🌾 Gluten-free',
+      diet_other: '⚠️ Other allergy',
+      label_allergy_detail: 'Please specify your allergy',
+      placeholder_allergy_detail: 'e.g. peanuts, lactose…',
+      card_transport_title: 'Transport & carpooling',
+      card_transport_desc: 'To help us organize travel arrangements.',
+      label_transport: 'How will you get there?',
+      transport_car: '🚗 Car',
+      transport_shuttle: '🚌 Shuttle',
+      transport_other: '🚶 Other',
+      error_transport: 'Please select your means of transport',
+      label_carpooling: 'Carpooling',
+      carpool_offer: '🙋 I can offer a seat',
+      carpool_need: '🔍 I am looking for a seat',
+      carpool_not_concerned: '— Not concerned',
+      card_stay_title: 'Accommodation',
+      card_stay_desc: 'To make sure you enjoy a comfortable stay.',
+      label_stay: 'Do you need accommodation?',
+      stay_need: '🏨 Yes, I need accommodation',
+      stay_reserved: '✅ Room already booked',
+      stay_no: '🚗 No, I will go home',
+      label_nights: 'Number of nights',
+      placeholder_nights: '1',
+      card_message_title: 'A message for us?',
+      card_message_desc: 'A message, a song, an anecdote… everything is welcome.',
+      label_message_optional: 'Your message (optional)',
+      placeholder_message: 'Write your message for the couple here…',
+      submit_button: '💍 Send my reply',
+      error_global: 'Please fill in all required fields.',
+      success_title: 'Thank you, it\'s recorded!',
+      success_message: 'Your reply has been successfully recorded.<br>We cannot wait to celebrate this moment with you.<br><br><em>See you soon ✨</em>',
+      footer_text: '✦ &nbsp; Invitation-only form &nbsp; ✦ &nbsp; Please do not share &nbsp; ✦',
+      send_error: 'An error occurred while sending the response to Google Sheets.',
+      missing_url: 'Missing Apps Script URL'
+    },
+    vi: {
+      page_title: 'Đám Cưới Của Chúng Tôi — Biểu Mẫu Khách Mời',
+      gate_title: 'Chọn ngôn ngữ của bạn',
+      gate_subtitle: 'Vui lòng chọn ngôn ngữ trước khi vào biểu mẫu.',
+      gate_continue: 'Vào biểu mẫu',
+      header_sub: 'Chúng tôi sẽ rất hạnh phúc khi có bạn chung vui cùng chúng tôi 💍',
+      card_identity_title: 'Thông tin của bạn',
+      card_identity_desc: 'Những thông tin này sẽ giúp chúng tôi cá nhân hóa lời mời của bạn.',
+      label_firstname: 'Tên',
+      label_lastname: 'Họ',
+      label_phone_optional: 'Số điện thoại (không bắt buộc)',
+      placeholder_firstname: 'Marie',
+      placeholder_lastname: 'Dupont',
+      placeholder_phone: '+33 6 00 00 00 00',
+      error_required: 'Trường bắt buộc',
+      card_attendance_title: 'Xác nhận tham dự',
+      card_attendance_desc: 'Bạn có tham dự ngày đặc biệt này cùng chúng tôi không?',
+      label_attendance_confirm: 'Bạn có xác nhận tham dự không?',
+      attendance_yes: '✅ Có, rất hân hạnh!',
+      attendance_no: '😔 Không, tôi không thể tham dự',
+      attendance_maybe: '⏳ Chưa xác nhận',
+      error_presence: 'Vui lòng xác nhận việc tham dự',
+      label_children: 'Bạn có đi cùng trẻ em không?',
+      generic_yes_children: '👶 Có',
+      generic_no: '— Không',
+      label_children_count: 'Số lượng trẻ em',
+      label_children_ages: 'Độ tuổi của trẻ',
+      placeholder_children_count: 'ví dụ: 2',
+      placeholder_children_ages: 'ví dụ: 3 tuổi, 7 tuổi, 11 tuổi',
+      card_meal_title: 'Bữa ăn & chế độ ăn',
+      card_meal_desc: 'Để chúng tôi có thể chuẩn bị thực đơn phù hợp nhất cho bạn.',
+      label_diet: 'Bạn có dị ứng hoặc chế độ ăn đặc biệt nào không?',
+      diet_vegetarian: '🥦 Ăn chay',
+      diet_vegan: '🌱 Thuần chay',
+      diet_glutenfree: '🌾 Không gluten',
+      diet_other: '⚠️ Dị ứng khác',
+      label_allergy_detail: 'Vui lòng ghi rõ dị ứng của bạn',
+      placeholder_allergy_detail: 'ví dụ: đậu phộng, lactose…',
+      card_transport_title: 'Phương tiện & đi chung xe',
+      card_transport_desc: 'Để chúng tôi thuận tiện sắp xếp việc di chuyển.',
+      label_transport: 'Bạn sẽ đến bằng cách nào?',
+      transport_car: '🚗 Xe hơi',
+      transport_shuttle: '🚌 Xe đưa đón',
+      transport_other: '🚶 Khác',
+      error_transport: 'Vui lòng chọn phương tiện di chuyển',
+      label_carpooling: 'Đi chung xe',
+      carpool_offer: '🙋 Tôi có thể cho đi nhờ',
+      carpool_need: '🔍 Tôi cần tìm chỗ đi nhờ',
+      carpool_not_concerned: '— Không áp dụng',
+      card_stay_title: 'Lưu trú',
+      card_stay_desc: 'Để đảm bảo bạn có một đêm nghỉ thật thoải mái.',
+      label_stay: 'Bạn có cần chỗ ở không?',
+      stay_need: '🏨 Có, tôi cần chỗ ở',
+      stay_reserved: '✅ Đã đặt phòng',
+      stay_no: '🚗 Không, tôi sẽ về nhà',
+      label_nights: 'Số đêm ở lại',
+      placeholder_nights: '1',
+      card_message_title: 'Lời nhắn cho chúng tôi?',
+      card_message_desc: 'Một lời nhắn, một bài hát, một kỷ niệm… tất cả đều được chào đón.',
+      label_message_optional: 'Lời nhắn của bạn (không bắt buộc)',
+      placeholder_message: 'Hãy viết lời nhắn của bạn cho cô dâu chú rể tại đây…',
+      submit_button: '💍 Gửi phản hồi',
+      error_global: 'Vui lòng điền đầy đủ các trường bắt buộc.',
+      success_title: 'Cảm ơn, chúng tôi đã ghi nhận!',
+      success_message: 'Phản hồi của bạn đã được ghi nhận thành công.<br>Chúng tôi rất mong được chung vui cùng bạn.<br><br><em>Hẹn gặp lại sớm ✨</em>',
+      footer_text: '✦ &nbsp; Biểu mẫu dành riêng cho khách mời &nbsp; ✦ &nbsp; Vui lòng không chia sẻ &nbsp; ✦',
+      send_error: 'Đã xảy ra lỗi khi gửi phản hồi tới Google Sheets.',
+      missing_url: 'Thiếu URL Apps Script'
+    }
+  };
+
+  const presenceValueMap = { fr: { yes: 'Oui', no: 'Non', maybe: 'À confirmer' }, en: { yes: 'Yes', no: 'No', maybe: 'To be confirmed' }, vi: { yes: 'Có', no: 'Không', maybe: 'Chưa xác nhận' } };
+  const childrenValueMap = { fr: { yes: 'Oui', no: 'Non' }, en: { yes: 'Yes', no: 'No' }, vi: { yes: 'Có', no: 'Không' } };
+  const transportValueMap = { fr: { car: 'Voiture', shuttle: 'Navette', other: 'Autre' }, en: { car: 'Car', shuttle: 'Shuttle', other: 'Other' }, vi: { car: 'Xe hơi', shuttle: 'Xe đưa đón', other: 'Khác' } };
+  const carpoolValueMap = { fr: { offer: 'Je propose une place', need: 'Je recherche une place', none: 'Non concerné' }, en: { offer: 'I can offer a seat', need: 'I am looking for a seat', none: 'Not concerned' }, vi: { offer: 'Tôi có thể cho đi nhờ', need: 'Tôi cần tìm chỗ đi nhờ', none: 'Không áp dụng' } };
+  const stayValueMap = { fr: { yes: 'Oui', reserved: 'Chambre réservée', no: 'Non' }, en: { yes: 'Yes', reserved: 'Room already booked', no: 'No' }, vi: { yes: 'Có', reserved: 'Đã đặt phòng', no: 'Không' } };
+  const dietValueMap = { fr: { vegetarian: 'Végétarien', vegan: 'Vegan', glutenfree: 'Sans gluten', halal: 'Halal', kosher: 'Casher', other: 'Autre' }, en: { vegetarian: 'Vegetarian', vegan: 'Vegan', glutenfree: 'Gluten-free', halal: 'Halal', kosher: 'Kosher', other: 'Other allergy' }, vi: { vegetarian: 'Ăn chay', vegan: 'Thuần chay', glutenfree: 'Không gluten', halal: 'Halal', kosher: 'Kosher', other: 'Dị ứng khác' } };
+
+  let currentLanguage = 'fr';
+
+  const languageGate = document.getElementById('language-gate');
+  const pageContent = document.getElementById('page-content');
+  const languageSwitcher = document.getElementById('language-switcher');
+  const languageOptions = document.querySelectorAll('[data-lang-choice]');
+  const enterFormBtn = document.getElementById('enter-form-btn');
+  const checkAutreReg = document.getElementById('r-autre');
   const allergieWrap = document.getElementById('allergie-detail-wrap');
-  checkAutreReg.addEventListener('change', () => {
-    allergieWrap.classList.toggle('open', checkAutreReg.checked);
-  });
 
-  // ── TOGGLE enfants ────────────────────────────────────────────
-  document.querySelectorAll('[name="avec_enfants"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const val = document.querySelector('[name="avec_enfants"]:checked')?.value;
-      document.getElementById('enfants-detail-wrap').classList.toggle('open', val === 'Oui');
+  function applyTranslations(lang) {
+    currentLanguage = translations[lang] ? lang : 'fr';
+    const dict = translations[currentLanguage];
+
+    document.documentElement.lang = currentLanguage;
+    document.title = dict.page_title;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (dict[key] !== undefined) {
+        el.innerHTML = dict[key];
+      }
     });
-  });
 
-  // ── TOGGLE hébergement nuits ────────────────────────────────────
-  document.querySelectorAll('[name="hebergement"]').forEach(r => {
-    r.addEventListener('change', () => {
-      const val = document.querySelector('[name="hebergement"]:checked')?.value;
-      document.getElementById('nuits-wrap').classList.toggle('open', val === 'Oui');
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (dict[key] !== undefined) {
+        el.setAttribute('placeholder', dict[key]);
+      }
     });
-  });
 
-  // ── VALIDATION ──────────────────────────────────────────────────
+    if (languageSwitcher.value !== currentLanguage) {
+      languageSwitcher.value = currentLanguage;
+    }
+
+    localStorage.setItem('wedding_form_lang', currentLanguage);
+  }
+
+  function mapSelectedRegimes(lang) {
+    const regimes = [];
+    if (document.getElementById('r-vege').checked) regimes.push(dietValueMap[lang].vegetarian);
+    if (document.getElementById('r-vegan').checked) regimes.push(dietValueMap[lang].vegan);
+    if (document.getElementById('r-gluten').checked) regimes.push(dietValueMap[lang].glutenfree);
+    if (document.getElementById('r-halal').checked) regimes.push(dietValueMap[lang].halal);
+    if (document.getElementById('r-casher').checked) regimes.push(dietValueMap[lang].kosher);
+    if (document.getElementById('r-autre').checked) regimes.push(dietValueMap[lang].other);
+    return regimes.join(', ');
+  }
+
+  function getPayload() {
+    return {
+      timestamp: new Date().toLocaleString('fr-FR'),
+      langue: currentLanguage,
+      prenom: document.getElementById('prenom').value.trim(),
+      nom: document.getElementById('nom').value.trim(),
+      telephone: document.getElementById('telephone').value.trim(),
+      presence: document.getElementById('p-oui').checked
+        ? presenceValueMap[currentLanguage].yes
+        : document.getElementById('p-non').checked
+          ? presenceValueMap[currentLanguage].no
+          : document.getElementById('p-attente').checked
+            ? presenceValueMap[currentLanguage].maybe
+            : '',
+      avec_enfants: document.getElementById('enf-oui').checked ? childrenValueMap[currentLanguage].yes : childrenValueMap[currentLanguage].no,
+      nb_enfants: document.getElementById('nb_enfants').value,
+      ages_enfants: document.getElementById('ages_enfants').value.trim(),
+      regime: mapSelectedRegimes(currentLanguage),
+      allergie_detail: document.getElementById('allergie-detail').value.trim(),
+      transport: document.getElementById('tr-voiture').checked
+        ? transportValueMap[currentLanguage].car
+        : document.getElementById('tr-navette').checked
+          ? transportValueMap[currentLanguage].shuttle
+          : document.getElementById('tr-autre').checked
+            ? transportValueMap[currentLanguage].other
+            : '',
+      covoiturage: document.getElementById('cv-propose').checked
+        ? carpoolValueMap[currentLanguage].offer
+        : document.getElementById('cv-recherche').checked
+          ? carpoolValueMap[currentLanguage].need
+          : carpoolValueMap[currentLanguage].none,
+      hebergement: document.getElementById('h-oui').checked
+        ? stayValueMap[currentLanguage].yes
+        : document.getElementById('h-reserve').checked
+          ? stayValueMap[currentLanguage].reserved
+          : stayValueMap[currentLanguage].no,
+      nb_nuits: document.getElementById('nb_nuits').value,
+      message: document.getElementById('message').value.trim(),
+    };
+  }
+
   function showError(inputEl, msgEl, show) {
     inputEl?.classList.toggle('error', show);
     msgEl?.classList.toggle('visible', show);
@@ -619,32 +1029,54 @@
     return valid;
   }
 
-  function downloadResponseFile(payload) {
-    const fileName = `reponse-mariage-${payload.prenom || 'invite'}-${payload.nom || 'invite'}`
-      .toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9-]+/g, '-')
-      .replace(/^-+|-+$/g, '') + '.json';
-
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
-  }
-
   function showSuccessScreen() {
     document.getElementById('mariage-form').style.display = 'none';
     document.getElementById('success-screen').style.display = 'block';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function openForm(lang) {
+    applyTranslations(lang);
+    languageGate.style.display = 'none';
+    pageContent.style.display = 'block';
+    pageContent.classList.remove('hidden-initial');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  // ── SUBMIT ──────────────────────────────────────────────────────
+  languageOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      languageOptions.forEach(btn => btn.classList.remove('active'));
+      option.classList.add('active');
+      applyTranslations(option.dataset.langChoice);
+    });
+  });
+
+  enterFormBtn.addEventListener('click', () => {
+    openForm(currentLanguage);
+  });
+
+  languageSwitcher.addEventListener('change', (e) => {
+    applyTranslations(e.target.value);
+  });
+
+  checkAutreReg.addEventListener('change', () => {
+    allergieWrap.classList.toggle('open', checkAutreReg.checked);
+  });
+
+  document.querySelectorAll('[name="avec_enfants"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const val = document.querySelector('[name="avec_enfants"]:checked')?.value;
+      document.getElementById('enfants-detail-wrap').classList.toggle('open', val === 'Oui');
+    });
+  });
+
+  document.querySelectorAll('[name="hebergement"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const val = document.querySelector('[name="hebergement"]:checked')?.value;
+      document.getElementById('nuits-wrap').classList.toggle('open', val === 'Oui');
+    });
+  });
+
   document.getElementById('mariage-form').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -659,47 +1091,32 @@
     btn.disabled = true;
     btn.classList.add('loading');
 
-    // Regimes cochés
-    const regimes = [...document.querySelectorAll('[name="regime"]:checked')].map(c => c.value).join(', ');
-
-    const payload = {
-      timestamp:       new Date().toLocaleString('fr-FR'),
-      prenom:          document.getElementById('prenom').value.trim(),
-      nom:             document.getElementById('nom').value.trim(),
-      telephone:       document.getElementById('telephone').value.trim(),
-      presence:        document.querySelector('[name="presence"]:checked')?.value || '',
-      avec_enfants:    document.querySelector('[name="avec_enfants"]:checked')?.value || '',
-      nb_enfants:      document.getElementById('nb_enfants').value,
-      ages_enfants:    document.getElementById('ages_enfants').value.trim(),
-      regime:          regimes,
-      allergie_detail: document.getElementById('allergie-detail').value.trim(),
-      transport:       document.querySelector('[name="transport"]:checked')?.value || '',
-      covoiturage:     document.querySelector('[name="covoiturage"]:checked')?.value || '',
-      hebergement:     document.querySelector('[name="hebergement"]:checked')?.value || '',
-      nb_nuits:        document.getElementById('nb_nuits').value,
-      message:         document.getElementById('message').value.trim(),
-    };
+    const payload = getPayload();
 
     try {
-      if (HAS_REMOTE_ENDPOINT) {
-        await fetch(APPS_SCRIPT_URL, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-      } else {
-        downloadResponseFile(payload);
+      if (!HAS_REMOTE_ENDPOINT) {
+        throw new Error(translations[currentLanguage].missing_url);
       }
+
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
 
       showSuccessScreen();
     } catch (err) {
       console.error(err);
       btn.disabled = false;
       btn.classList.remove('loading');
-      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+      alert(translations[currentLanguage].send_error);
     }
   });
+
+  const savedLang = localStorage.getItem('wedding_form_lang') || 'fr';
+  languageOptions.forEach(btn => btn.classList.toggle('active', btn.dataset.langChoice === savedLang));
+  applyTranslations(savedLang);
 </script>
 </body>
 </html>
