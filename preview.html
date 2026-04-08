@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notre Mariage — Formulaire Invités</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── RESET & VARIABLES ─────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose:       #c2185b;
+    --rose-light: #f8bbd9;
+    --rose-pale:  #fff0f6;
+    --gold:       #c9963a;
+    --gold-light: #f5e6c8;
+    --cream:      #fdf8f2;
+    --dark:       #2c1810;
+    --muted:      #7a6a5a;
+    --border:     #e8d5c4;
+    --white:      #ffffff;
+    --shadow:     0 2px 24px rgba(194,24,91,.10);
+    --radius:     14px;
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans:  'Jost', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ORNAMENTS ──────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 10% 20%, rgba(194,24,91,.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 90% 80%, rgba(201,150,58,.07) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ── HEADER ────────────────────────────────────────────────── */
+  header {
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 64px 24px 48px;
+  }
+
+  .header-ornament {
+    font-size: 28px; letter-spacing: 12px;
+    color: var(--gold); opacity: .7;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .couple-names {
+    font-family: var(--font-serif);
+    font-size: clamp(38px, 8vw, 68px);
+    font-weight: 300;
+    color: var(--dark);
+    line-height: 1.1;
+    letter-spacing: .02em;
+  }
+
+  .couple-names em {
+    font-style: italic;
+    color: var(--rose);
+  }
+
+  .header-date {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 16px;
+  }
+
+  .header-sub {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  .divider {
+    display: flex; align-items: center; justify-content: center;
+    gap: 16px; margin: 32px auto; max-width: 320px;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, var(--border));
+  }
+  .divider::after { background: linear-gradient(to left, transparent, var(--border)); }
+  .divider span { font-size: 18px; color: var(--gold); }
+
+  /* ── CARD ──────────────────────────────────────────────────── */
+  .card {
+    position: relative; z-index: 1;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    max-width: 680px;
+    margin: 0 auto 32px;
+    padding: 36px 40px;
+    animation: fadeUp .5s ease both;
+  }
+
+  @media (max-width: 600px) { .card { padding: 24px 18px; margin: 0 12px 24px; } }
+
+  .card-title {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--rose);
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card-title .icon { font-size: 20px; }
+  .card-desc {
+    font-size: 13px; color: var(--muted); margin-bottom: 28px;
+    font-style: italic;
+  }
+
+  /* ── FORM FIELDS ───────────────────────────────────────────── */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+  @media (max-width: 520px) { .field-row { grid-template-columns: 1fr; } }
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  label .req { color: var(--rose); margin-left: 2px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--cream);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--dark);
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    outline: none;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--rose);
+    box-shadow: 0 0 0 3px rgba(194,24,91,.08);
+    background: var(--white);
+  }
+  input.error, select.error, textarea.error {
+    border-color: #e53935;
+    box-shadow: 0 0 0 3px rgba(229,57,53,.08);
+  }
+  .error-msg {
+    color: #e53935; font-size: 11px; margin-top: 5px; display: none;
+  }
+  .error-msg.visible { display: block; }
+
+  select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a6a5a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
+
+  /* ── RADIO / CHECK GROUPS ──────────────────────────────────── */
+  .radio-group, .check-group {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px;
+  }
+
+  .radio-btn, .check-btn {
+    position: relative;
+  }
+  .radio-btn input, .check-btn input {
+    position: absolute; opacity: 0; width: 0; height: 0;
+  }
+  .radio-btn label, .check-btn label {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    background: var(--cream);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: .3px;
+    text-transform: none;
+    color: var(--dark);
+    transition: all .18s;
+    user-select: none;
+  }
+  .radio-btn input:checked + label,
+  .check-btn input:checked + label {
+    background: var(--rose);
+    border-color: var(--rose);
+    color: var(--white);
+    box-shadow: 0 2px 8px rgba(194,24,91,.25);
+  }
+  .radio-btn label:hover, .check-btn label:hover {
+    border-color: var(--rose-light);
+    background: var(--rose-pale);
+  }
+
+  /* ── TOGGLE SECTIONS ───────────────────────────────────────── */
+  .toggle-section {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .35s ease;
+  }
+  .toggle-section.open { max-height: 500px; }
+
+  /* ── SUBMIT BUTTON ─────────────────────────────────────────── */
+  .submit-wrap {
+    text-align: center; margin-top: 12px;
+    position: relative; z-index: 1;
+  }
+
+  .btn-submit {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 16px 48px;
+    background: linear-gradient(135deg, var(--rose) 0%, #e91e8c 100%);
+    color: var(--white);
+    border: none; border-radius: 50px;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(194,24,91,.35);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(194,24,91,.40);
+  }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+  .btn-submit .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+    display: none;
+  }
+  .btn-submit.loading .spinner { display: block; }
+  .btn-submit.loading .btn-text { opacity: .7; }
+
+  /* ── SUCCESS STATE ─────────────────────────────────────────── */
+  #success-screen {
+    display: none;
+    position: relative; z-index: 1;
+    text-align: center;
+    padding: 80px 24px;
+    max-width: 560px;
+    margin: 0 auto;
+    animation: fadeUp .5s ease;
+  }
+  #success-screen .big-emoji { font-size: 64px; margin-bottom: 24px; display: block; }
+  #success-screen h2 {
+    font-family: var(--font-serif);
+    font-size: 36px; font-weight: 300;
+    color: var(--rose); margin-bottom: 12px;
+  }
+  #success-screen p { font-size: 16px; color: var(--muted); font-style: italic; line-height: 1.7; }
+
+  /* ── FOOTER ────────────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 1px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── ANIMATIONS ────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .card:nth-child(1) { animation-delay: .05s; }
+  .card:nth-child(2) { animation-delay: .12s; }
+  .card:nth-child(3) { animation-delay: .18s; }
+  .card:nth-child(4) { animation-delay: .24s; }
+  .card:nth-child(5) { animation-delay: .30s; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────────────── -->
+<header>
+  <span class="header-ornament">✦ ✦ ✦</span>
+  <h1 class="couple-names"><em>Prénom</em> &amp; <em>Prénom</em></h1>
+  <p class="header-date">JJ · MM · AAAA &nbsp;—&nbsp; Ville, France</p>
+  <p class="header-sub">Nous serions si heureux de vous compter parmi nous 💍</p>
+  <div class="divider"><span>❧</span></div>
+</header>
+
+<!-- ── FORM ───────────────────────────────────────────────────── -->
+<main id="form-wrapper">
+<form id="mariage-form" novalidate>
+
+  <!-- CARTE 1 — IDENTITÉ -->
+  <div class="card">
+    <div class="card-title"><span class="icon">👤</span> Votre identité</div>
+    <p class="card-desc">Ces informations nous permettront de personnaliser votre invitation.</p>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="prenom">Prénom <span class="req">*</span></label>
+        <input type="text" id="prenom" name="prenom" placeholder="Marie" required>
+        <p class="error-msg" id="err-prenom">Champ requis</p>
+      </div>
+      <div class="field">
+        <label for="nom">Nom <span class="req">*</span></label>
+        <input type="text" id="nom" name="nom" placeholder="Dupont" required>
+        <p class="error-msg" id="err-nom">Champ requis</p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="telephone">Téléphone (optionnel)</label>
+      <input type="text" id="telephone" name="telephone" placeholder="+33 6 00 00 00 00">
+    </div>
+  </div>
+
+  <!-- CARTE 2 — PRÉSENCE -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🎉</span> Votre présence</div>
+    <p class="card-desc">Serez-vous parmi nous ce jour si particulier ?</p>
+
+    <div class="field">
+      <label>Confirmez-vous votre présence ? <span class="req">*</span></label>
+      <div class="radio-group" id="presence-group">
+        <div class="radio-btn">
+          <input type="radio" name="presence" id="p-oui" value="Oui" required>
+          <label for="p-oui">✅ Oui, avec plaisir !</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="presence" id="p-non" value="Non">
+          <label for="p-non">😔 Non, je ne pourrai pas</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="presence" id="p-attente" value="À confirmer">
+          <label for="p-attente">⏳ À confirmer</label>
+        </div>
+      </div>
+      <p class="error-msg" id="err-presence">Veuillez indiquer votre présence</p>
+    </div>
+
+    <div class="field">
+      <label>Venez-vous accompagné(e) d'enfants ?</label>
+      <div class="radio-group">
+        <div class="radio-btn">
+          <input type="radio" name="avec_enfants" id="enf-oui" value="Oui">
+          <label for="enf-oui">👶 Oui</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="avec_enfants" id="enf-non" value="Non" checked>
+          <label for="enf-non">— Non</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="toggle-section" id="enfants-detail-wrap">
+      <div class="field">
+        <label for="nb_enfants">Nombre d'enfants</label>
+        <input type="number" id="nb_enfants" name="nb_enfants" min="1" max="10" placeholder="ex : 2">
+      </div>
+      <div class="field">
+        <label for="ages_enfants">Âge(s) des enfants</label>
+        <input type="text" id="ages_enfants" name="ages_enfants" placeholder="ex : 3 ans, 7 ans, 11 ans">
+      </div>
+    </div>
+  </div>
+
+  <!-- CARTE 3 — REPAS -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🍽️</span> Repas & régimes</div>
+    <p class="card-desc">Pour que nous puissions vous concocter le menu parfait.</p>
+
+    <div class="field">
+      <label>Avez-vous des allergies ou régimes alimentaires ?</label>
+      <div class="check-group">
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-vege" value="Végétarien">
+          <label for="r-vege">🥦 Végétarien</label>
+        </div>
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-vegan" value="Vegan">
+          <label for="r-vegan">🌱 Vegan</label>
+        </div>
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-gluten" value="Sans gluten">
+          <label for="r-gluten">🌾 Sans gluten</label>
+        </div>
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-halal" value="Halal">
+          <label for="r-halal">☪️ Halal</label>
+        </div>
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-casher" value="Casher">
+          <label for="r-casher">✡️ Casher</label>
+        </div>
+        <div class="check-btn">
+          <input type="checkbox" name="regime" id="r-autre" value="Autre">
+          <label for="r-autre">⚠️ Autre allergie</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field toggle-section" id="allergie-detail-wrap">
+      <label for="allergie-detail">Précisez votre allergie</label>
+      <input type="text" id="allergie-detail" name="allergie_detail" placeholder="ex : arachides, lactose…">
+    </div>
+  </div>
+
+  <!-- CARTE 4 — TRANSPORT -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🚗</span> Transport & covoiturage</div>
+    <p class="card-desc">Pour organiser les déplacements au mieux.</p>
+
+    <div class="field">
+      <label>Comment venez-vous ? <span class="req">*</span></label>
+      <div class="radio-group">
+        <div class="radio-btn">
+          <input type="radio" name="transport" id="tr-voiture" value="Voiture" required>
+          <label for="tr-voiture">🚗 Voiture</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="transport" id="tr-navette" value="Navette">
+          <label for="tr-navette">🚌 Navette</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="transport" id="tr-autre" value="Autre">
+          <label for="tr-autre">🚶 Autre</label>
+        </div>
+      </div>
+      <p class="error-msg" id="err-transport">Veuillez sélectionner votre moyen de transport</p>
+    </div>
+
+    <div class="field">
+      <label>Covoiturage</label>
+      <div class="radio-group">
+        <div class="radio-btn">
+          <input type="radio" name="covoiturage" id="cv-propose" value="Je propose une place">
+          <label for="cv-propose">🙋 Je propose une place</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="covoiturage" id="cv-recherche" value="Je recherche une place">
+          <label for="cv-recherche">🔍 Je recherche une place</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="covoiturage" id="cv-non" value="Non concerné" checked>
+          <label for="cv-non">— Non concerné</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARTE 5 — HÉBERGEMENT -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🛏️</span> Hébergement</div>
+    <p class="card-desc">Pour s'assurer que vous passiez une nuit sereine.</p>
+
+    <div class="field">
+      <label>Avez-vous besoin d'hébergement ?</label>
+      <div class="radio-group">
+        <div class="radio-btn">
+          <input type="radio" name="hebergement" id="h-oui" value="Oui">
+          <label for="h-oui">🏨 Oui, j'en ai besoin</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="hebergement" id="h-reserve" value="Chambre réservée">
+          <label for="h-reserve">✅ Chambre déjà réservée</label>
+        </div>
+        <div class="radio-btn">
+          <input type="radio" name="hebergement" id="h-non" value="Non" checked>
+          <label for="h-non">🚗 Non, je rentre chez moi</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field toggle-section" id="nuits-wrap">
+      <label for="nb_nuits">Nombre de nuits</label>
+      <input type="number" id="nb_nuits" name="nb_nuits" min="1" max="7" placeholder="1">
+    </div>
+  </div>
+
+  <!-- CARTE 6 — MESSAGE -->
+  <div class="card">
+    <div class="card-title"><span class="icon">💌</span> Un mot pour nous ?</div>
+    <p class="card-desc">Un message, une chanson, une anecdote… tout est bienvenu.</p>
+    <div class="field">
+      <label for="message">Votre message (optionnel)</label>
+      <textarea id="message" name="message" placeholder="Écrivez ici votre mot pour les mariés…"></textarea>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <button type="submit" class="btn-submit" id="btn-submit">
+      <div class="spinner"></div>
+      <span class="btn-text">💍 Envoyer ma réponse</span>
+    </button>
+    <p id="global-error" style="color:#e53935;font-size:13px;margin-top:14px;display:none;">
+      Veuillez remplir tous les champs obligatoires.
+    </p>
+  </div>
+
+</form>
+
+<!-- SUCCESS SCREEN -->
+<div id="success-screen">
+  <span class="big-emoji">💍</span>
+  <h2>Merci, c'est noté !</h2>
+  <p>Votre réponse a bien été enregistrée.<br>
+     Nous avons hâte de célébrer ce moment avec vous.<br><br>
+     <em>À très bientôt ✨</em>
+  </p>
+</div>
+</main>
+
+<footer>
+  ✦ &nbsp; Formulaire réservé aux invités &nbsp; ✦ &nbsp; Ne pas partager &nbsp; ✦
+</footer>
+
+<script>
+  // ── CONFIG ─────────────────────────────────────────────────────
+  // Renseignez votre URL Apps Script si vous souhaitez enregistrer les réponses à distance.
+  // Si aucune URL n'est définie, le formulaire restera pleinement fonctionnel
+  // et téléchargera automatiquement un fichier JSON contenant la réponse.
+  const APPS_SCRIPT_URL = '';
+  const HAS_REMOTE_ENDPOINT = APPS_SCRIPT_URL && !APPS_SCRIPT_URL.includes('VOTRE_URL_APPS_SCRIPT_ICI');
+
+  // ── TOGGLE "autre allergie" ─────────────────────────────────────
+  const checkAutreReg = document.getElementById('regime-autre-check') || document.getElementById('r-autre');
+  const allergieWrap = document.getElementById('allergie-detail-wrap');
+  checkAutreReg.addEventListener('change', () => {
+    allergieWrap.classList.toggle('open', checkAutreReg.checked);
+  });
+
+  // ── TOGGLE enfants ────────────────────────────────────────────
+  document.querySelectorAll('[name="avec_enfants"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const val = document.querySelector('[name="avec_enfants"]:checked')?.value;
+      document.getElementById('enfants-detail-wrap').classList.toggle('open', val === 'Oui');
+    });
+  });
+
+  // ── TOGGLE hébergement nuits ────────────────────────────────────
+  document.querySelectorAll('[name="hebergement"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const val = document.querySelector('[name="hebergement"]:checked')?.value;
+      document.getElementById('nuits-wrap').classList.toggle('open', val === 'Oui');
+    });
+  });
+
+  // ── VALIDATION ──────────────────────────────────────────────────
+  function showError(inputEl, msgEl, show) {
+    inputEl?.classList.toggle('error', show);
+    msgEl?.classList.toggle('visible', show);
+  }
+
+  function validateForm() {
+    let valid = true;
+
+    const prenom = document.getElementById('prenom');
+    const nom = document.getElementById('nom');
+    const presenceChecked = document.querySelector('[name="presence"]:checked');
+    const transportChecked = document.querySelector('[name="transport"]:checked');
+
+    showError(prenom, document.getElementById('err-prenom'), !prenom.value.trim());
+    if (!prenom.value.trim()) valid = false;
+
+    showError(nom, document.getElementById('err-nom'), !nom.value.trim());
+    if (!nom.value.trim()) valid = false;
+
+    const errPresence = document.getElementById('err-presence');
+    errPresence.classList.toggle('visible', !presenceChecked);
+    if (!presenceChecked) valid = false;
+
+    const errTransport = document.getElementById('err-transport');
+    errTransport.classList.toggle('visible', !transportChecked);
+    if (!transportChecked) valid = false;
+
+    return valid;
+  }
+
+  function downloadResponseFile(payload) {
+    const fileName = `reponse-mariage-${payload.prenom || 'invite'}-${payload.nom || 'invite'}`
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9-]+/g, '-')
+      .replace(/^-+|-+$/g, '') + '.json';
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
+  function showSuccessScreen() {
+    document.getElementById('mariage-form').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+
+  // ── SUBMIT ──────────────────────────────────────────────────────
+  document.getElementById('mariage-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    document.getElementById('global-error').style.display = 'none';
+    if (!validateForm()) {
+      document.getElementById('global-error').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    // Regimes cochés
+    const regimes = [...document.querySelectorAll('[name="regime"]:checked')].map(c => c.value).join(', ');
+
+    const payload = {
+      timestamp:       new Date().toLocaleString('fr-FR'),
+      prenom:          document.getElementById('prenom').value.trim(),
+      nom:             document.getElementById('nom').value.trim(),
+      telephone:       document.getElementById('telephone').value.trim(),
+      presence:        document.querySelector('[name="presence"]:checked')?.value || '',
+      avec_enfants:    document.querySelector('[name="avec_enfants"]:checked')?.value || '',
+      nb_enfants:      document.getElementById('nb_enfants').value,
+      ages_enfants:    document.getElementById('ages_enfants').value.trim(),
+      regime:          regimes,
+      allergie_detail: document.getElementById('allergie-detail').value.trim(),
+      transport:       document.querySelector('[name="transport"]:checked')?.value || '',
+      covoiturage:     document.querySelector('[name="covoiturage"]:checked')?.value || '',
+      hebergement:     document.querySelector('[name="hebergement"]:checked')?.value || '',
+      nb_nuits:        document.getElementById('nb_nuits').value,
+      message:         document.getElementById('message').value.trim(),
+    };
+
+    try {
+      if (HAS_REMOTE_ENDPOINT) {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+      } else {
+        downloadResponseFile(payload);
+      }
+
+      showSuccessScreen();
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      btn.classList.remove('loading');
+      alert('Une erreur est survenue. Veuillez réessayer ou nous contacter directement.');
+    }
+  });
+</script>
+</body>
+</html>
