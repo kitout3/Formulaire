@@ -807,7 +807,7 @@
           </div>
           <div class="check-btn">
             <input type="checkbox" name="regime" id="r-aucun" value="Pas concerné">
-            <label for="r-aucun">✅ Pas concerné</label>
+            <label for="r-aucun" data-i18n="carpool_not_concerned">— Non concerné</label>
           </div>
         </div>
       </div>
@@ -829,7 +829,7 @@
           </div>
           <div class="radio-btn">
             <input type="radio" name="transport" id="tr-commun" value="Transport en commun">
-            <label for="tr-commun">🚇 Transport en commun</label>
+            <label for="tr-commun" data-i18n="transport_com">🚇 Autre</label>
           </div>
           <div class="radio-btn">
             <input type="radio" name="transport" id="tr-autre" value="Autre">
@@ -921,6 +921,7 @@
 
   const translations = {
     fr: {
+      transport_com: 'Transport en commun',
       page_title: 'Notre Mariage — Formulaire Invités',
       label_acc: 'Serez-vous accompagné(e) de votre conjoint(e) ?',
       gate_title: 'Choisissez votre langue',
@@ -994,6 +995,7 @@
       missing_url: 'URL Apps Script manquante'
     },
     en: {
+      transport_com: 'Public Transport',
       label_acc: 'Will you be accompanied by your spouse or partner?',
       page_title: 'Our Wedding — Guest Form',
       gate_title: 'Choose your language',
@@ -1067,6 +1069,7 @@
       missing_url: 'Missing Apps Script URL'
     },
     vi: {
+      transport_com: 'Giao thông công cộng',
       label_acc: 'Bạn có đi cùng vợ/chồng hoặc người yêu của mình không?',
       page_title: 'Đám Cưới Của Chúng Tôi — Biểu Mẫu Khách Mời',
       gate_title: 'Chọn ngôn ngữ của bạn',
